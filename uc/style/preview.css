@@ -1,0 +1,79 @@
+/* Cascading stylesheet
+ * $Id$
+ */
+@charset "utf-8";
+
+body {
+	font-family: calibri, helvetica, sans-serif;
+	color: #000; background-color: #DDD;
+	font-weight: normal;
+	text-align: center;
+}
+
+div#container {
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 50em;
+	text-align: justify;
+	border-style: solid;
+	border-color: grey black black grey;
+	border-width: 1px 2px 2px 1px;
+	padding: 1em 2em;
+	background-color: #FFF;
+}
+
+
+h1, h2, h3, h4, h5 {
+	font-family: cambria, garamond, times, sans-serif;
+}
+
+a { text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+hr {
+    border-width: 1px;
+    border-style: inset;
+}
+
+dt {
+	font-weight:bold;
+	padding-right: 0.4em;
+}
+dd {
+	margin-top: 0px; margin-bottom: 0px;
+	padding-top: 0px; padding-bottom: 0px;
+	border: 0px none;
+}
+
+table.flow {
+	margin-left: -1em;
+}
+.flow td {
+	padding-left: 1em;
+	vertical-align: top;
+}
+.flow td.item {
+	font-weight:bold;
+	width: 2em;
+}
+.flow td.content {
+	padding-left: 1em;
+	width: 100%;
+}
+.flow td.alternative {
+	padding-left: 0.2em;
+	font-weight:bold;
+	padding-top: .3em;
+}
+
+.alternative .description {
+	font-weight: normal;
+}
+
+p.activity {
+	display: table;
+	margin-top: 10px; margin-bottom: 0px;
+	padding-top: 0px; padding-bottom: 0px;
+}
+
+table { border-collapse: collapse; }
