@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	$Id$
+ -->
+<project name="use cases" basedir="." default="html">
+
+	<property name="file.input" value="usecases.xml" />
+	<property name="dir.styles" value="style" />
+	<property name="dir.output" value="html" />
+	<property name="style.html" value="${dir.styles}/uc2html.xsl" />
+
+	<target name="html">
+		<xslt in="${file.input}" out="out.html"
+		      style="${style.html}"/>
+	</target>
+</project>
