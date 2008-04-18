@@ -4,8 +4,8 @@
 	Example use case
 	$Id$
 -->
-<use-cases xmlns="urn:tu-wien:inso:use-case"
-	xmlns:uc="urn:tu-wien:inso:use-case"
+<use-cases xmlns="urn:use-case"
+	xmlns:uc="urn:use-case"
 	xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
 	<title>Reporting - Use Cases</title>
