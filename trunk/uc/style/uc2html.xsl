@@ -117,7 +117,6 @@
 		</dl>
 	</xsl:template>
 
-
 	<xsl:template match="uc:flow">
 		<table class="flow">
 			<xsl:variable name="steps_custom">
@@ -137,7 +136,7 @@
 
 			<xsl:variable name="steps" select="exsl:node-set($steps_custom)/uc:step"/>
 
-			<xsl:for-each select="$steps">
+			<xsl:for-each select="$steps/uc:step">
 				<tr>
 					<xsl:call-template name="flow.step"/>
 				</tr>
@@ -302,7 +301,7 @@
 		</xsl:message>
 	</xsl:template>
 
-	<xsl:template match="uc:pre | uc:post | uc:actor | uc:description">
+	<xsl:template match="uc:pre | uc:post | uc:actor | uc:description ">
 		<xsl:apply-templates select="./* | text()"/>
 	</xsl:template>
 
@@ -310,13 +309,6 @@
 		<xsl:copy>
 			<xsl:apply-templates select="@* | node()"/>
 		</xsl:copy>
-	</xsl:template>
-	
-	<!-- remove all elements with uc:* from output -->
-	<xsl:template match="uc:*">
-		<xsl:for-each select="./*|text()">
-			<xsl:apply-templates/>
-		</xsl:for-each>
 	</xsl:template>
 
 </xsl:stylesheet>
