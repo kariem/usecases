@@ -1,4 +1,8 @@
 <?xml version="1.0"?>
+<!--
+	XML Stylesheet
+	$Id$
+-->
 <xsl:stylesheet
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0"
 	xmlns:uc="urn:use-case"
@@ -6,6 +10,8 @@
 	xmlns:exsl="http://exslt.org/common"
     extension-element-prefixes="exsl"
 	exclude-result-prefixes="uc">
+	
+	<xsl:strip-space elements="*"/>
 
 	<!-- This stylesheet produces HTML in utf-8 -->
 	<xsl:output method="html" indent="no"
@@ -304,6 +310,13 @@
 		<xsl:copy>
 			<xsl:apply-templates select="@* | node()"/>
 		</xsl:copy>
+	</xsl:template>
+	
+	<!-- remove all elements with uc:* from output -->
+	<xsl:template match="uc:*">
+		<xsl:for-each select="./*|text()">
+			<xsl:apply-templates/>
+		</xsl:for-each>
 	</xsl:template>
 
 </xsl:stylesheet>
