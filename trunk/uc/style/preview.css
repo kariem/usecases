@@ -77,3 +77,19 @@ p.activity {
 }
 
 table { border-collapse: collapse; }
+
+.change {
+	border: 1px dotted grey;
+}
+
+.change.added {
+	background-color: #DDF;
+}
+
+.change.removed {
+	background-color: #FDD;
+}
+
+.change.adapted {
+	background-color: #DFD;
+}

@@ -10,7 +10,7 @@
 	xmlns:exsl="http://exslt.org/common"
     extension-element-prefixes="exsl"
 	exclude-result-prefixes="uc">
-	
+
 	<xsl:strip-space elements="*"/>
 
 	<!-- This stylesheet produces HTML in utf-8 -->
@@ -49,6 +49,9 @@
 	</xsl:template>
 
 	<xsl:template match="uc:uc">
+		<div class="usecase">
+		<div>
+		<xsl:apply-templates select="@change"/>
 		<xsl:variable name="depth" select="count(ancestor-or-self::*)"/>
 		<xsl:element name="h{$depth}">
 			<xsl:if test="@xml:id">
@@ -115,6 +118,8 @@
 				</dd>
 			</xsl:if>
 		</dl>
+		</div>
+		</div>
 	</xsl:template>
 
 	<xsl:template match="uc:flow">
@@ -272,7 +277,6 @@
 		<xsl:text>.</xsl:text>
 	</xsl:template>
 
-
 	<xsl:template name="ref.title">
 		<xsl:param name="ref" select="@ref"/>
 		<xsl:param name="nodes" select="/"/>
@@ -303,6 +307,27 @@
 
 	<xsl:template match="uc:pre | uc:post | uc:actor | uc:description ">
 		<xsl:apply-templates select="./* | text()"/>
+	</xsl:template>
+
+	<xsl:template match="uc:change">
+		<span>
+			<xsl:attribute name="class">
+				<xsl:text>change</xsl:text>
+				<xsl:if test="@type">
+					<xsl:text> </xsl:text>
+					<xsl:value-of select="@type"/>
+				</xsl:if>
+			</xsl:attribute>
+			<xsl:apply-templates select="node()"/>
+		</span>
+	</xsl:template>
+
+	<xsl:template match="@change">
+		<xsl:attribute name="class">
+			<xsl:text>change</xsl:text>
+			<xsl:text> </xsl:text>
+			<xsl:value-of select="."/>
+		</xsl:attribute>
 	</xsl:template>
 
 	<xsl:template match="node() | @*">
