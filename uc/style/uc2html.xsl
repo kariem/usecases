@@ -264,7 +264,7 @@
 			<xsl:call-template name="ref.title"/>
 		</xsl:variable>
 		<xsl:text>Execute use case </xsl:text>
-		<a href="#{@ref}" title="&lt;include&gt;"><xsl:value-of select="$title"/></a>
+		<a href="#{@ref}" title="&#171;include&#187;"><xsl:value-of select="$title"/></a>
 		<xsl:text>.</xsl:text>
 	</xsl:template>
 
@@ -273,7 +273,15 @@
 			<xsl:call-template name="ref.title"/>
 		</xsl:variable>
 		<xsl:text>Extension with use case </xsl:text>
-		<a href="#{@ref}" title="&lt;extend&gt;"><xsl:value-of select="$title"/></a>
+		<a href="#{@ref}" title="&#171;extend&#187;"><xsl:value-of select="$title"/></a>
+		<xsl:text>.</xsl:text>
+	</xsl:template>
+
+	<xsl:template match="uc:ref">
+		<xsl:variable name="title">
+			<xsl:call-template name="ref.title"/>
+		</xsl:variable>
+		<a href="#{@ref}" title="use case reference"><xsl:value-of select="$title"/></a>
 		<xsl:text>.</xsl:text>
 	</xsl:template>
 
