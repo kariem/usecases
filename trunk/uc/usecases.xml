@@ -97,6 +97,30 @@
 			<post>The user can view the details of a specific environment by selecting it.</post>
 		</uc>
 
+		<uc xml:id="uc.monitor.view-env">
+			<title>View Environment</title>
+			<desc>View the health status of a system.</desc>
+			<actor>User</actor>
+			<pre>A user needs to be logged in. The user is presented a list of environments to choose from</pre>
+			<flow>
+				<step>User selects an environment.</step>
+				<step>The environment information is shown. This includes:
+					<ul>
+						<li>Health status</li>
+						<li>Loopback mode</li>
+						<li>Status description</li>
+					</ul>
+				</step>
+			</flow>
+			<post>The environment is selected for this conversation. The user may now choose to:
+				<ul>
+					<li>List work orders (see <ref ref="uc.monitor.list-env"/>)</li>
+					<li>Query work orders</li>
+					<li>Execute queries for this environment</li>
+				</ul>
+			</post>
+		</uc>
+
 	</section>
 
 	<section>
