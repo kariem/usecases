@@ -112,6 +112,37 @@
 					</ul>
 				</step>
 			</flow>
+			<post>The environment is selected for this conversation.
+				<ul>
+					<li><extend ref="uc.monitor.list-env"/></li>
+					<li><extend ref="uc.monitor.query-wo"/></li>
+					<li>Execute queries for this environment</li>
+				</ul>
+			</post>
+		</uc>
+
+		<uc xml:id="uc.monitor.query-wo">
+			<title>Query Work Order</title>
+			<desc>
+				Displays a list of work orders or a single work order that match/matches a previously entered query. The
+				user may query a work order by entering work order or customer ID. It is possible to enter incomplete
+				information prefixed or suffixed with the wildcard character ‘%’
+			</desc>
+			<actor>User</actor>
+			<pre>A user needs to be logged in. The environment information is being displayed.</pre>
+			<flow>
+				<step>The user enters the query on the selected system.</step>
+				<step>The query is submitted on the selected system.</step>
+				<step name="none_found">Work orders matching the query are found on the system.</step>
+				<step>A list of matching work orders is compiled and displayed.</step>
+				<alternatives>
+					<alternative start="none_found">
+						<description>No work orders found</description>
+						<step>No work order matching the query can be found.</step>
+						<step>An information message is shown: <i>No work orders matching the query could be found.</i></step>
+					</alternative>
+				</alternatives>
+			</flow>
 			<post>The environment is selected for this conversation. The user may now choose to:
 				<ul>
 					<li>List work orders (see <ref ref="uc.monitor.list-env"/>)</li>
