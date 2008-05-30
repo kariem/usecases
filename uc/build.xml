@@ -4,13 +4,13 @@
  -->
 <project name="use cases" basedir="." default="html">
 
-	<property name="file.input" value="usecases.xml" />
+	<property name="file.input" value="uc-viewer.xml" />
 	<property name="dir.styles" value="style" />
 	<property name="dir.output" value="html" />
 	<property name="style.html" value="${dir.styles}/uc2html.xsl" />
 
 	<target name="html">
-		<xslt in="${file.input}" out="out.html"
+		<xslt in="${file.input}" out="uc-viewer.html"
 		      style="${style.html}"/>
 	</target>
 </project>
