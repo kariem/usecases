@@ -15,7 +15,7 @@
 	<section>
 		<title>Main Use Cases</title>
 
-		<uc>
+		<uc xml:id="uc.view_available_docs">
 			<title>View Available Documents</title>
 			<desc>
 				List the contents of a repository and show the available documents as a list of selectable
@@ -48,9 +48,7 @@
 
 		<uc xml:id="uc.view_document">
 			<title>View Document</title>
-			<desc>
-				Navigate to a path within a repository and view a document.
-			</desc>
+			<desc>Navigate to a path within a repository and view a document.</desc>
 			<actor>User</actor>
 			<pre>Connection to a valid repository has been established.</pre>
 			<flow>
@@ -78,9 +76,7 @@
 
 		<uc xml:id="uc.compare">
 			<title>Compare Documents</title>
-			<desc>
-				Compare two revisions of the same document
-			</desc>
+			<desc>Compare two revisions of the same document</desc>
 			<actor>User</actor>
 			<pre>
 				The user has selected a document and two different revisions of this document as
@@ -97,5 +93,24 @@
 			</post>
 		</uc>
 
+	</section>
+
+	<section>
+		<title>Repository Browsing</title>
+
+		<uc xml:id="uc.navigate">
+			<title>Navigate Repository</title>
+			<desc>
+				Navigate to different locations in the repository. Similar to <ref ref="uc.view_available_docs"/> for
+				normal repository content.
+			</desc>
+			<actor>User</actor>
+			<pre>Connection to a valid repository has been established.</pre>
+			<flow>
+				<step>User enters path of the location to view.</step>
+				<step>Contents of the location are displayed.</step>
+			</flow>
+			<post>The new location is selected. Contents of this location can be selected for navigation.</post>
+		</uc>
 	</section>
 </use-cases>

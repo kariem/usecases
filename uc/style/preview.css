@@ -8,6 +8,7 @@ body {
 	color: #000; background-color: #DDD;
 	font-weight: normal;
 	text-align: center;
+	margin: 1.5em 2em;
 }
 
 div#container {

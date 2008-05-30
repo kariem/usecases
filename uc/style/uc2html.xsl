@@ -21,7 +21,13 @@
 	<xsl:template match="/">
 		<html>
 			<head>
-				<title>Preview</title>
+				<title>
+					<xsl:if test="uc:use-cases/uc:title">
+						<xsl:value-of select="uc:use-cases/uc:title"/>
+						<xsl:text>: </xsl:text>
+					</xsl:if>
+					<xsl:text>Preview</xsl:text>
+				</title>
 				<link rel="stylesheet" href="style/preview.css"/>
 			</head>
 
