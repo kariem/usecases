@@ -45,6 +45,15 @@
 		</h1>
 	</xsl:template>
 
+	<xsl:template match="uc:section">
+		<div class="section">
+			<div>
+				<xsl:apply-templates select="@*"/>
+				<xsl:apply-templates select="./*"/>
+			</div>
+		</div>
+	</xsl:template>
+
 	<xsl:template match="uc:section/uc:title">
 		<xsl:variable name="depth" select="count(ancestor::*)"/>
 		<xsl:element name="h{$depth}">
