@@ -124,6 +124,7 @@
 
 	<xsl:template match="uc:flow">
 		<table class="flow">
+			<!-- copy steps to node set with additional @index showing the position -->
 			<xsl:variable name="steps_custom">
 				<xsl:for-each select="uc:step">
 					<xsl:copy>
@@ -228,7 +229,7 @@
 			<tr>
 				<xsl:call-template name="flow.step">
 					<xsl:with-param name="prefix" select="$prefix"/>
-					<xsl:with-param name="start" select="$startpos"/>
+					<xsl:with-param name="start" select="$start"/>
 				</xsl:call-template>
 			</tr>
 		</xsl:for-each>
@@ -246,7 +247,7 @@
 				<xsl:call-template name="flow.step">
 					<xsl:with-param name="label">
 						<xsl:value-of select="$prefix"/>
-						<xsl:value-of select="$startpos + 1 + count(uc:step)"/>
+						<xsl:value-of select="$start + 1 + count(uc:step)"/>
 					</xsl:with-param>
 					<xsl:with-param name="content">
 						<xsl:text>Continue the use case execution at step </xsl:text>
@@ -256,41 +257,52 @@
 				</xsl:call-template>
 			</tr>
 		</xsl:if>
-
 	</xsl:template>
 
+	<!-- Include, exclude and generic references -->
+
 	<xsl:template match="uc:include">
-		<xsl:variable name="title">
-			<xsl:call-template name="ref.title"/>
-		</xsl:variable>
-		<xsl:text>Execute use case </xsl:text>
-		<a href="#{@ref}" title="&#171;include&#187;"><xsl:value-of select="$title"/></a>
-		<xsl:text>.</xsl:text>
+		<xsl:call-template name="ref.link">
+			<xsl:with-param name="prefix" select="'Execute use case '"/>
+			<xsl:with-param name="title" select="'&#171;include&#187;'"/>
+			<xsl:with-param name="ref" select="@ref"/>
+		</xsl:call-template>
 	</xsl:template>
 
 	<xsl:template match="uc:extend">
-		<xsl:variable name="title">
-			<xsl:call-template name="ref.title"/>
-		</xsl:variable>
-		<xsl:text>Extension with use case </xsl:text>
-		<a href="#{@ref}" title="&#171;extend&#187;"><xsl:value-of select="$title"/></a>
-		<xsl:text>.</xsl:text>
+		<xsl:call-template name="ref.link">
+			<xsl:with-param name="prefix" select="'Extension with use case '"/>
+			<xsl:with-param name="title" select="'&#171;extend&#187;'"/>
+			<xsl:with-param name="ref" select="@ref"/>
+		</xsl:call-template>
 	</xsl:template>
 
 	<xsl:template match="uc:ref">
-		<xsl:variable name="title">
-			<xsl:call-template name="ref.title"/>
-		</xsl:variable>
-		<a href="#{@ref}" title="use case reference"><xsl:value-of select="$title"/></a>
-		<xsl:text>.</xsl:text>
+		<xsl:call-template name="ref.link">
+			<xsl:with-param name="ref" select="@ref"/>
+		</xsl:call-template>
 	</xsl:template>
 
-	<xsl:template name="ref.title">
+	<xsl:template name="ref.reference">
 		<xsl:param name="ref" select="@ref"/>
 		<xsl:param name="nodes" select="/"/>
 		<xsl:for-each select="$nodes//uc:uc[@xml:id = $ref]">
 			<xsl:value-of select="uc:title"/>
 		</xsl:for-each>
+	</xsl:template>
+
+	<xsl:template name="ref.link">
+		<xsl:param name="prefix" select="''"/>
+		<xsl:param name="title" select="'use case reference'"/>
+		<xsl:param name="ref" select="@ref"/>
+		<xsl:param name="reference">
+			<xsl:call-template name="ref.reference"/>
+		</xsl:param>
+
+		<xsl:if test="$prefix != ''">
+			<xsl:value-of select="$prefix"/>
+		</xsl:if>
+		<a href="#{@ref}" title="{$title}"><xsl:value-of select="$reference"/></a>
 	</xsl:template>
 
 	<xsl:template name="search_by_name">
@@ -313,9 +325,7 @@
 		</xsl:message>
 	</xsl:template>
 
-	<xsl:template match="uc:pre | uc:post | uc:actor | uc:description ">
-		<xsl:apply-templates select="./* | text()"/>
-	</xsl:template>
+	<!-- Change annotations -->
 
 	<xsl:template match="uc:change">
 		<span>
@@ -336,6 +346,12 @@
 			<xsl:text> </xsl:text>
 			<xsl:value-of select="."/>
 		</xsl:attribute>
+	</xsl:template>
+
+	<!-- Mixed content model for some elements -->
+
+	<xsl:template match="uc:pre | uc:post | uc:actor | uc:description ">
+		<xsl:apply-templates select="./* | text()"/>
 	</xsl:template>
 
 	<xsl:template match="node() | @*">
