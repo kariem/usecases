@@ -1,0 +1,60 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	template="#{theme.template}">
+
+	<ui:define name="title">#{messages['title.main']}</ui:define>
+
+	<ui:define name="body">
+	
+		<h:form id="openRepository">
+			
+			<s:decorate id="repositoryUrl" template="#{theme.edit}">
+				<ui:define name="label">#{messages['repository.url']}</ui:define>
+				<h:inputText value="#{reposAccess.url}" size="80" title="Paste the repository URL here" required="true"/>
+			</s:decorate>
+			
+			<s:fragment rendered="#{loginNecessary}">
+				<s:decorate id="repositoryUser" template="#{theme.edit}">
+					<ui:define name="label">#{messages['repository.user']}</ui:define>
+					<h:inputText value="#{reposAccess.username}" />
+				</s:decorate>
+				<s:decorate id="repositoryPass" template="#{theme.edit}">
+					<ui:define name="label">#{messages['repository.pass']}</ui:define>
+					<h:inputText value="#{reposAccess.password}" />
+				</s:decorate>
+			</s:fragment>
+			
+			<h:commandButton action="#{repoBrowser.open}" value="Open"/>
+			
+		</h:form>
+		
+		<s:span rendered="#{not empty repositories and repositories.rowCount > 0}">
+			<h2>#{messages['title.available.repositories']}</h2>
+			<rich:dataTable id="repositories" value="#{repositories}" var="r">
+				<rich:column colspan="3">
+					#{r.name}
+				</rich:column>
+				
+				<rich:subTable value="#{r.paths}" var="path">
+					<rich:column><rich:spacer/></rich:column>
+					<rich:column>#{path}</rich:column>
+					<rich:column>
+						<s:link view="/browse.xhtml">
+							#{messages['action.open']}
+							<f:param name="reposId" value="#{r.id}" />
+							<f:param name="path" value="#{path}" />
+						</s:link>
+					</rich:column>
+				</rich:subTable>
+			</rich:dataTable>
+		</s:span>
+		
+
+	</ui:define>
+</ui:composition>

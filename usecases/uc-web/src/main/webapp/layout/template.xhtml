@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:s="http://jboss.com/products/seam/taglib">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>UC Viewer - <ui:insert name="title">View</ui:insert></title>
+	<link href="#{facesContext.externalContext.requestContextPath}#{theme.css}" rel="stylesheet" type="text/css" />
+	<ui:insert name="supplemental-header"/>
+	<script src="#{facesContext.externalContext.requestContextPath}/layout/jquery.js" type="text/javascript"></script>
+</head>
+
+<body>
+	<div class="heading h1"><ui:insert name="title"/></div>
+
+	<div class="messages">
+		<rich:messages globalOnly="true" styleClass="message uc" errorClass="error" warnClass="warn" infoClass="info" />
+	</div>
+	
+	<div class="body">
+		<ui:insert name="body" />
+	</div>
+
+	<div class="uc footer">© 2008 Kariem Hussein</div>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	template="#{theme.template}">
+
+	<ui:define name="title">#{messages['title.compare']}</ui:define>
+	
+	<ui:define name="supplemental-header">
+		<s:fragment rendered="#{not reposEntry.directory}">
+			<link href="#{facesContext.externalContext.requestContextPath}/stylesheet/uc.css" rel="stylesheet" type="text/css" />
+		</s:fragment>
+	</ui:define>
+
+	<ui:define name="body">
+
+		<div class="heading h2">
+			#{messages['compare.header']}
+			<div class="sub">#{locNew} &#10570; #{locOld}</div>
+		</div>
+
+	    <s:div id="comparison_results" rendered="#{not instance.properties['compare_results'].isEmpty()}">
+	    	<div id="comparison_header" class="panel_header" onclick="$('#comparison_body').slideToggle('fast');">
+	    		#{messages['compare.summary']}
+	    	</div>
+			<div id="comparison_body" class="panel_body">
+				<ul>
+					<ui:repeat value="#{instance.properties['compare_results'].model}" var="e">
+						<s:fragment rendered="#{e.value > 0}">
+							<li>#{messages[e.key]}: #{e.value}</li>
+						</s:fragment>
+					</ui:repeat>
+				</ul>
+			</div>
+		</s:div>
+
+		<h:outputText value="#{entryComparator.view}" escape="false"/>
+
+	</ui:define>
+	
+</ui:composition>

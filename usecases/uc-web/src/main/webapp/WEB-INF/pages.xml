@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pages xmlns="http://jboss.com/products/seam/pages"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://jboss.com/products/seam/pages http://jboss.com/products/seam/pages-2.0.xsd"
+	no-conversation-view-id="/home.xhtml">
+
+	<page view-id="*">
+		<navigation>
+			<rule if-outcome="home">
+				<redirect view-id="/home.xhtml" />
+			</rule>
+		</navigation>
+	</page>
+
+	<page view-id="/home.xhtml">
+		<navigation from-action="#{repoBrowser.open}">
+			<rule if-outcome="success">
+				<begin-conversation join="true" />
+				<redirect view-id="/browse.xhtml">
+					<param name="reposId" value="#{repos.id}" />
+					<param name="path" value="#{path}" />
+				</redirect>
+			</rule>
+		</navigation>
+	</page>
+
+	<page view-id="/browse.xhtml" action="#{repoBrowser.browse}">
+		<param name="reposId" required="true" />
+		<param name="path" />
+		<param name="revision" converterId="javax.faces.Long" />
+
+		<action execute="#{ucViewer.prepareDocument}"
+			if="#{reposEntry != null and !reposEntry.directory}" />
+		<action execute="#{ucViewer.showHistory}"
+			if="#{not ucViewer.historyAvailable and document != null}" />
+	</page>
+
+	<page view-id="/compare.xhtml"
+		action="#{entryComparator.compare}">
+		<param name="reposId" required="true" />
+		<param name="new_path" required="true" />
+		<param name="old_path" required="true" />
+		<param name="new" />
+		<param name="old" />
+	</page>
+	
+	<exception class="org.jboss.seam.security.AuthorizationException">
+		<redirect view-id="/error.xhtml">
+			<message>You don't have permission to do this</message>
+		</redirect>
+	</exception>
+
+	<exception class="org.jboss.seam.security.NotLoggedInException">
+		<redirect view-id="/login.xhtml">
+			<message>Please log in first</message>
+		</redirect>
+	</exception>
+
+	<exception class="javax.faces.application.ViewExpiredException">
+		<redirect view-id="/error.xhtml">
+			<message>Your session has timed out, please try again</message>
+		</redirect>
+	</exception>
+
+	<exception>
+		<redirect view-id="/error.xhtml">
+			<message>Unexpected error, please try again</message>
+		</redirect>
+	</exception>
+
+</pages>

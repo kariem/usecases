@@ -1,0 +1,17 @@
+#Fri Apr 25 11:18:30 CEST 2008
+action.package=at.exa.usecase.action
+action.sources=/uc-service/src/main/java
+eclipse.preferences.version=1
+model.package=at.exa.usecase.model
+model.sources=/uc-service/src/main/java
+seam.ear.project=uc-ear
+seam.ejb.project=uc-service
+seam.project.connection.profile=usecases
+seam.project.deployment.type=ear
+seam.project.settings.version=1.1
+seam.project.web.root.folder=/uc/src/main/webapp
+seam.runtime.name=jboss-seam-2.0.1.GA
+seam.test.creating=false
+seam.test.project=uc-test
+test.package=at.exa.usecase.test
+test.sources=/uc/src/main/java
