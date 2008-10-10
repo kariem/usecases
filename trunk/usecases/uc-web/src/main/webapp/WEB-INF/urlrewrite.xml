@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+	$Id$
+	URL rewrite configuration
+-->
+<!DOCTYPE urlrewrite
+    PUBLIC "-//tuckey.org//DTD UrlRewrite 3.0//EN"
+    "http://tuckey.org/res/dtds/urlrewrite3.0.dtd">
+
+<urlrewrite>
+
+	<rule>
+		<from>^/([a-z]+)/([a-f0-9\-]+)/</from>
+		<to>/$1.uc?reposId=$2</to>
+	</rule>
+
+	<rule>
+		<from>^/([a-z]+)/?$</from>
+		<to>/$1.uc</to>
+	</rule>
+
+	<outbound-rule>
+		<from>/([a-z]+)\.uc\?reposId=([a-f0-9\-]+)&amp;(.*)</from>
+		<to>/$1/$2/?$3</to>
+	</outbound-rule>
+
+	<outbound-rule>
+		<from>/([a-z]+)\.uc\?reposId=([a-f0-9\-]+)</from>
+		<to>/$1/$2/</to>
+	</outbound-rule>
+
+	<outbound-rule>
+		<from>/([a-z]+)\.uc\?(.*)&amp;reposId=([a-f0-9\-]+)</from>
+		<to>/$1/$3/?$2</to>
+	</outbound-rule>
+
+	<outbound-rule>
+		<from>/([a-z]+)\.uc</from>
+		<to>/$1/</to>
+	</outbound-rule>
+
+</urlrewrite>

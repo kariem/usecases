@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:seam="http://jboss.com/products/seam/spring-seam"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+		http://jboss.com/products/seam/spring-seam http://jboss.com/products/seam/spring-seam-2.0.xsd
+	">
+
+	<bean id="contentProcessor" class="org.uccreator.content.ContentProcessorContainer">
+		<seam:component />
+		<property name="children" ref="contentProcessors" />
+	</bean>
+	
+	<bean id="documentComparator" class="org.uccreator.content.DocumentComparatorContainer">
+		<seam:component />
+		<property name="children" ref="documentComparators" />
+	</bean>
+
+</beans>

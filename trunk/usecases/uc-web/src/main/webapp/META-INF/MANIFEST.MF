@@ -1,0 +1,3 @@
+Manifest-Version: 1.0
+Class-Path: uc-service.jar 
+ jboss-seam-2.0.1.GA.jar

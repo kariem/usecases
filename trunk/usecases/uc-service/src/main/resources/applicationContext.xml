@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	$Id$
+	Spring context configuration
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd	
+	">
+
+	<!-- Process Content -->
+	
+	<util:list id="contentProcessors">
+		<ref bean="contentTransformer"/>
+	</util:list>
+
+	<bean id="contentTransformer" class="org.uccreator.content.transform.TransformerBasedProcessor">
+		<property name="styles">
+			<map>
+				<entry key-ref="documentProcessor" value="/uc/style/uc2html.xsl"/>
+			</map>
+		</property>
+		<property name="postProcessors">
+			<list>
+				<ref bean="extractBodyProcessor"/>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="documentProcessor" class="org.uccreator.content.transform.AlwaysTrueDocumentProcessor"/>
+	<bean id="extractBodyProcessor" class="org.uccreator.content.transform.ExtractHtmlBodyProcessor"/>
+
+
+	<!-- Comparison -->
+	
+	<util:list id="documentComparators">
+		<ref bean="xmlDiffComparator"/>
+	</util:list>
+	
+	<bean id="xmlDiffComparator" class="org.uccreator.content.compare.XmlDiffComparator">
+		<property name="annotator" ref="xmlAnnotator"/>
+		<property name="differ" ref="xmlUnitDiffer"/>
+	</bean>
+	
+	<!-- Extract differences -->
+	<bean id="xmlUnitDiffer" class="org.uccreator.content.compare.XmlUnitDiffer">
+		<property name="xpathNodeExtractor" ref="xpathExtractor"/>
+		<property name="diffAnnotators">
+			<map>
+				<entry>
+					<key><util:constant static-field="org.custommonkey.xmlunit.DifferenceConstants.CHILD_NODE_NOT_FOUND_ID"/></key>
+					<bean class="org.uccreator.content.compare.xmlunit.AnnChildNotFound" parent="annTemplate"/>
+				</entry>
+				<entry>
+					<key><util:constant static-field="org.custommonkey.xmlunit.DifferenceConstants.TEXT_VALUE_ID"/></key>
+					<bean class="org.uccreator.content.compare.xmlunit.AnnTextValue" parent="annTemplate"/>
+				</entry>
+				<entry>
+					<key><util:constant static-field="org.custommonkey.xmlunit.DifferenceConstants.NODE_TYPE_ID"/></key>
+					<bean class="org.uccreator.content.compare.xmlunit.AnnNodeType" parent="annTemplate"/>
+				</entry>
+				<entry>
+					<key><util:constant static-field="org.custommonkey.xmlunit.DifferenceConstants.ELEMENT_NUM_ATTRIBUTES_ID"/></key>
+					<bean class="org.uccreator.content.compare.xmlunit.AnnElementAttributes" parent="annTemplate"/>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	
+	<bean id="annTemplate" class="org.uccreator.content.compare.xmlunit.AnnNodeType">
+		<property name="xpathNodeExtractor" ref="xpathExtractor"/>
+	</bean>
+	
+	<!-- Apply changes to document -->
+	<bean id="xmlAnnotator" class="org.uccreator.content.compare.XmlAnnotator">
+		<property name="xpathNodeExtractor" ref="xpathExtractor"/>
+	</bean>
+	
+	<bean id="xpathExtractor" class="org.uccreator.content.compare.XPathNodeExtractor"/>
+	
+</beans>

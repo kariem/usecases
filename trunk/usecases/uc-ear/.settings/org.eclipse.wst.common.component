@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-modules id="moduleCoreId" project-version="1.5.0">
+	<wb-module deploy-name="uc-ear">
+		<wb-resource deploy-path="/" source-path="/EarContent"/>
+		<dependent-module deploy-path="/" handle="module:/resource/uc-service/uc-service">
+			<dependency-type>uses</dependency-type>
+		</dependent-module>
+		<dependent-module deploy-path="/" handle="module:/resource/uc/uc">
+			<dependency-type>uses</dependency-type>
+		</dependent-module>
+        <dependent-module deploy-path="/" handle="module:/classpath/var/M2_REPOS/org/jboss/seam/jboss-seam/2.0.2.GA/jboss-seam-2.0.2.GA.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module deploy-path="/lib" handle="module:/classpath/var/M2_REPOS/org/antlr/antlr-runtime/3.0/antlr-runtime-3.0.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module deploy-path="/lib" handle="module:/classpath/var/M2_REPOS/org/drools/drools-compiler/4.0.3/drools-compiler-4.0.3.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module deploy-path="/lib" handle="module:/classpath/var/M2_REPOS/org/drools/drools-core/4.0.3/drools-core-4.0.3.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module deploy-path="/lib" handle="module:/classpath/var/M2_REPOS/org/mvel/mvel14/1.2.10/mvel14-1.2.10.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module deploy-path="/lib" handle="module:/classpath/var/M2_REPOS/org/jboss/el/jboss-el/2.0.1.GA/jboss-el-2.0.1.GA.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module deploy-path="/lib" handle="module:/classpath/var/M2_REPOS/org/jboss/seam/jboss-seam-ioc/2.0.2.GA/jboss-seam-ioc-2.0.2.GA.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module deploy-path="/lib" handle="module:/classpath/var/M2_REPOS/org/springframework/spring/2.5.5/spring-2.5.5.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module deploy-path="/lib" handle="module:/classpath/var/M2_REPOS/com/svnkit/svnkit/1.1.6/svnkit-1.1.6.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module deploy-path="/lib" handle="module:/classpath/var/M2_REPOS/xmlunit/xmlunit/1.1/xmlunit-1.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+	</wb-module>
+</project-modules>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:application="http://java.sun.com/xml/ns/javaee/application_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application_5.xsd" version="5">
+  <display-name>uc-ear</display-name>
+  <module>
+    <web>
+      <web-uri>uc.war</web-uri>
+      <context-root>/uc</context-root>
+    </web>
+  </module>
+  <module>
+    <ejb>uc-service.jar</ejb>
+  </module>
+  <module>
+    <ejb>jboss-seam-2.0.2.GA.jar</ejb>
+  </module>
+</application>

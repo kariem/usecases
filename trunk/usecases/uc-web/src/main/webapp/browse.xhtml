@@ -1,0 +1,91 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	template="#{theme.template}">
+
+	<ui:define name="title">#{messages['title.browse']}</ui:define>
+
+	<ui:define name="body">
+
+		<p>
+			<s:link view="/home.xhtml" propagation="none">#{messages['title.main.link']}</s:link>
+		</p>
+
+		<div class="heading h2">#{messages['browse.path']}: #{path}
+			<s:span rendered="#{not empty revision}"> (rev. #{revision})</s:span>
+		</div>
+
+		<s:fragment rendered="#{reposEntry.directory}">
+			<ul>
+				<s:fragment rendered="#{reposEntry.location.path ne '/'}">
+					<li>
+						<s:link view="/browse.xhtml" value="..">
+							<f:param name="path" value="#{path}/.." />
+						</s:link>
+					</li>
+				</s:fragment>
+				<ui:repeat value="#{reposEntry.entries}" var="entry">
+					<li>
+						<s:link view="/browse.xhtml" value="#{entry}">
+							<f:param name="path" value="#{path}/#{entry.name}" />
+						</s:link>
+					</li>
+				</ui:repeat>
+			</ul>
+		</s:fragment>
+
+		<s:fragment rendered="#{not reposEntry.directory}">
+			<s:div id="uc_history" rendered="#{ucViewer.historyAvailable}">
+				<ul>
+					<ui:repeat value="#{document.revisionStreams}" var="stream">
+						<li>Stream <em>#{stream.name}</em>
+							<ul>
+								<ui:repeat value="#{stream.instances}" var="instance">
+									<li>
+										Revision #{instance.revision}
+										<s:fragment rendered="#{instance.revision == revision}">
+											(this revision)
+										</s:fragment>
+										<s:fragment rendered="#{instance.revision != revision}">
+											&#160;
+											<s:link view="/browse.xhtml" title="#{messages['browse.view']}"
+												value="View this revision">
+												<f:param name="path" value="#{path}/#{entry.name}" />
+												<f:param name="revision" value="#{instance.revision}" />
+											</s:link>
+											&#160;
+											<s:link view="/compare.xhtml" title="#{messages['browse.compare']}"
+												value="Compare with this revision">
+												<f:param name="old_path" value="#{path}" />
+												<f:param name="old" value="#{instance.revision}" />
+												<f:param name="new_path" value="#{path}" />
+												<f:param name="new" value="#{revision}" />
+											</s:link>
+										</s:fragment>
+									</li>
+								</ui:repeat>
+							</ul>
+						</li>
+					</ui:repeat>
+				</ul>
+			</s:div>
+
+			<h:outputText value="#{ucViewer.view}" escape="false"/>
+		</s:fragment>
+
+	</ui:define>
+
+	<ui:define name="supplemental-header">
+		<s:fragment rendered="#{not reposEntry.directory}">
+			<link href="#{facesContext.externalContext.requestContextPath}/stylesheet/uc.css" rel="stylesheet" type="text/css" />
+		</s:fragment>
+	</ui:define>
+
+
+
+</ui:composition>
