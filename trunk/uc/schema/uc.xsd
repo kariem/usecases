@@ -20,6 +20,7 @@
 			<sequence>
 				<element ref="uc:title"/>
 				<element maxOccurs="unbounded" ref="uc:uc"/>
+				<element minOccurs="0" maxOccurs="unbounded" ref="uc:section"/>
 			</sequence>
 		</complexType>
 	</element>
@@ -48,7 +49,7 @@
 			<attribute ref="uc:ref" use="required"/>
 		</complexType>
 	</element>
-	<element name="actor" type="NCName"/>
+	<element name="actor" type="string"/>
 	<element name="pre">
 		<complexType>
 			<xs:complexContent>
