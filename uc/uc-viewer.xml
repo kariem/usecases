@@ -30,7 +30,7 @@
 			<flow>
 				<step name="select_path">User enters the path of the location to view.</step>
 				<step name="display">The location at the specified path is displayed.</step>
-				<step name="document">The location does not denote a document: its contents are are displayed.</step>
+				<step name="document">The location does not denote a document: its contents are displayed.</step>
 				<alternatives>
 					<alternative start="select_path" continue="display">
 						<description>No path selected</description>
