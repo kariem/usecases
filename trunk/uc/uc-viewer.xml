@@ -4,14 +4,18 @@
 	Example use case
 	$Id$
 -->
-<use-cases xmlns="urn:use-case"
-	xmlns:uc="urn:use-case"
+<use-cases xmlns="urn:use-case:description"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="urn:use-case schema/uc.xsd"
+	xmlns:uc="urn:use-case:description"
 	xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
 	<title>Use Case Viewer</title>
 
-	<xhtml:p>Use cases for the <i>Use Case Viewer</i> application.</xhtml:p>
-
+	<uc:desc xmlns="http://www.w3.org/1999/xhtml">
+		Use cases for the <i>Use Case Viewer</i> application.
+	</uc:desc>
+	
 	<section>
 		<title>Main Use Cases</title>
 
@@ -34,16 +38,16 @@
 					</alternative>
 					<alternative start="document">
 						<description>Document selected</description>
-						<step><include ref="uc.view_document"/></step>
+						<step><include uc:ref="uc.view_document"/></step>
 					</alternative>
 				</alternatives>
 			</flow>
-			<post>One of the following
+			<uc:post xmlns="http://www.w3.org/1999/xhtml">One of the following
 				<ul>
 					<li>The contents of the newly selected path are displayed.</li>
-					<li><extend ref="uc.view_document"/></li>
+					<li><uc:extend uc:ref="uc.view_document"/></li>
 				</ul>
-			</post>
+			</uc:post>
 		</uc>
 
 		<uc xml:id="uc.view_document">
@@ -52,11 +56,11 @@
 			<actor>User</actor>
 			<pre>Connection to a valid repository has been established.</pre>
 			<flow>
-				<step>The user has selected a document for viewing.</step>
+				<step >The user has selected a document for viewing.</step>
 				<step>The document is loaded form the repository in the most recent version.</step>
 				<step>The raw document is transformed into a format intended for viewing.</step>
 			</flow>
-			<post>
+			<uc:post xmlns="http://www.w3.org/1999/xhtml">
 				The document is displayed together with the following meta-information:
 				<ul>
 					<li>Revision of the document</li>
@@ -64,14 +68,14 @@
 				</ul>
 
 				For each older revision two use cases can extend this use case:
-				<ul>
-					<li><extend ref="uc.view_document"/>, with the old use case's revision as <i>revision</i></li>
+				<ul>				
+					<li><uc:extend uc:ref="uc.view_document"/>, with the old use case's revision as <i>revision</i></li>
 					<li>
-						<extend ref="uc.compare"/>, with this use case as <i>new revision</i> and the other use
+						<uc:extend uc:ref="uc.compare"/>, with this use case as <i>new revision</i> and the other use
 						case as<i>old revision</i>.
 					</li>
 				</ul>
-			</post>
+			</uc:post>
 		</uc>
 
 		<uc xml:id="uc.compare">
@@ -80,13 +84,13 @@
 			<actor>User</actor>
 			<pre>
 				The user has selected a document and two different revisions of this document as
-				<i>old revision</i> and <i>new revision</i>.
+				<xhtml:i>old revision</xhtml:i> and <xhtml:i>new revision</xhtml:i>.
 			</pre>
 			<flow>
-				<step>Revisions <i>old revision</i> and <i>new revision</i> are loaded from the repository.</step>
+				<step>Revisions <xhtml:i>old revision</xhtml:i> and <xhtml:i>new revision</xhtml:i> are loaded from the repository.</step>
 				<step>Both revisions are compared with one another.</step>
-				<step>Differences are applied as annotations to <i>old revision</i>.</step>
-				<step>The annotated <i>old revision</i> is displayed.</step>
+				<step>Differences are applied as annotations to <xhtml:i>old revision</xhtml:i>.</step>
+				<step>The annotated <xhtml:i>old revision</xhtml:i> is displayed.</step>
 			</flow>
 			<post>
 				The result of the comparison is displayed.
@@ -101,7 +105,7 @@
 		<uc xml:id="uc.navigate">
 			<title>Navigate Repository</title>
 			<desc>
-				Navigate to different locations in the repository. Similar to <ref ref="uc.view_available_docs"/> for
+				Navigate to different locations in the repository. Similar to <ref uc:ref="uc.view_available_docs"/> for
 				normal repository content.
 			</desc>
 			<actor>User</actor>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xmlns:uc="urn:use-case:description"
+		targetNamespace="urn:use-case:description"
+		elementFormDefault="qualified" >
+	<import namespace="http://www.w3.org/XML/1998/namespace"
+			schemaLocation="xml.xsd"/>
+	<element name="use-cases">
+		<complexType>
+			<sequence>
+				<element ref="uc:title"/>
+				<element minOccurs="0" ref="uc:desc"/>
+				<element maxOccurs="unbounded" ref="uc:section"/>
+			</sequence>
+		</complexType>
+	</element>
+	<element name="section">
+		<complexType>
+			<sequence>
+				<element ref="uc:title"/>
+				<element maxOccurs="unbounded" ref="uc:uc"/>
+			</sequence>
+		</complexType>
+	</element>
+	<element name="uc">
+		<complexType>
+			<sequence>
+				<element ref="uc:title"/>
+				<element ref="uc:desc"/>
+				<element ref="uc:actor"/>
+				<element ref="uc:pre"/>
+				<element ref="uc:flow"/>
+				<element ref="uc:post"/>
+			</sequence>
+			<attribute ref="xml:id" use="required"/>
+		</complexType>
+	</element>
+	<element name="desc">
+		<complexType>
+			<complexContent>
+				<extension base="uc:text"/>
+			</complexContent>
+		</complexType>
+	</element>
+	<element name="ref">
+		<complexType>
+			<attribute ref="uc:ref" use="required"/>
+		</complexType>
+	</element>
+	<element name="actor" type="NCName"/>
+	<element name="pre">
+		<complexType>
+			<xs:complexContent>
+				<xs:extension base="uc:text"/>
+			</xs:complexContent>
+		</complexType>
+	</element>
+	<element name="flow">
+		<complexType>
+			<sequence>
+				<element maxOccurs="unbounded" ref="uc:step"/>
+				<element minOccurs="0" ref="uc:alternatives"/>
+			</sequence>
+		</complexType>
+		<unique name="stepName" >
+			<selector xpath="uc:step"/>
+			<field xpath="@name"/>
+		</unique>
+	</element>
+	<element name="step">
+		<complexType mixed="true">
+			<complexContent>
+				<extension base="uc:text">
+					<sequence>
+						<element ref="uc:include" minOccurs="0"/>
+					</sequence>
+					<attribute name="name" type="NCName"/>
+				</extension>
+			</complexContent>
+		</complexType>
+	</element>
+	<element name="alternatives">
+		<complexType>
+			<sequence>
+				<element maxOccurs="unbounded" ref="uc:alternative"/>
+			</sequence>
+		</complexType>
+	</element>
+	<element name="alternative">
+		<complexType>
+			<sequence>
+				<element ref="uc:description"/>
+				<element ref="uc:step"/>
+			</sequence>
+			<attribute name="continue" type="NCName"/>
+			<attribute name="start" use="required" type="NCName"/>
+		</complexType>
+	</element>
+	<element name="description" type="string"/>
+	<element name="post">
+		<complexType mixed="true">
+			<xs:complexContent>
+				<xs:extension base="uc:text">
+					<sequence>
+						<element ref="uc:extend" minOccurs="0"/>
+					</sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</complexType>
+	</element>
+	<element name="title" type="string"/>
+	<element name="include">
+		<complexType>
+			<attribute ref="uc:ref" use="required"/>
+		</complexType>
+	</element>
+	<element name="extend">
+		<complexType>
+			<attribute ref="uc:ref" use="required"/>
+		</complexType>
+	</element>
+	<complexType name="text" abstract="true" mixed="true">
+		<sequence>
+			<any namespace="http://www.w3.org/1999/xhtml"
+					minOccurs="0" maxOccurs="unbounded"
+					processContents="lax"/>
+			<element minOccurs="0" ref="uc:ref"/>
+		</sequence>
+	</complexType>
+	<attribute name="ref" type="IDREF"/>
+</schema>
